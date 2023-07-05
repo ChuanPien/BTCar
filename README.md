@@ -14,3 +14,5 @@
 ## 開發環境
 * Thonny 4.1.1
 * Python 3.10.11
+
+![image](png/Car.jpg)
