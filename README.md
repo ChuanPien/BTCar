@@ -9,7 +9,7 @@
  * 2023/7/3~7/7
 
 ## 課程連結
-  * [Google Drive](https://drive.google.com/drive/u/1/folders/1zn8TNLiltXHVvuN02wAW3QgiqbFKKlrb)
+  * [2023自走車暑期營隊學員講義(Google Drive)](https://drive.google.com/drive/u/1/folders/1zn8TNLiltXHVvuN02wAW3QgiqbFKKlrb)
 
 ## 開發環境
 * Thonny 4.1.1
@@ -17,11 +17,11 @@
 * Maker Pi RP2024
 
 ## 結構大綱
- + mods
+ + mods/
    + 課堂提供模組檔案
- + simple
+ + simple/
    + 基本練習程式
- + image
+ + image/
    + 圖片
 
 ![image](png/Car.jpg)
