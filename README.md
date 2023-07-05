@@ -14,5 +14,6 @@
 ## 開發環境
 * Thonny 4.1.1
 * Python 3.10.11
+* Maker Pi RP2024
 
 ![image](png/Car.jpg)
