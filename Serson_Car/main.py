@@ -5,7 +5,7 @@ from neopixel import Neopixel
 from ssd1306 import SSD1306_I2C
 import framebuf
 from count_img import *
-from arrow import *
+from arrow_img import *
 from Ultrasonic import *
 
 ############# Defined ##############
@@ -36,7 +36,7 @@ M1B.freq(50)
 M2A.freq(50)
 M2B.freq(50)
 
-speed = 40
+speed = 35
 distance = 0
 buzzer = PWM(Pin(22))
 volume = 0.01
@@ -73,7 +73,7 @@ def start():
     np.show()
     #buzzer.freq(C5)
     #buzzer.duty_u16(int(volume * 65535))
-    sleep(1)
+    sleep(0.5)
     
     oled.fill(0)
     oled.blit(p2, 0, 0)
@@ -83,7 +83,7 @@ def start():
     np.show()
     #buzzer.freq(C5)
     #buzzer.duty_u16(int(volume * 65535))
-    sleep(1)
+    sleep(0.5)
     
     oled.fill(0)
     oled.blit(p1, 0, 0)
@@ -93,14 +93,14 @@ def start():
     np.show()
     #buzzer.freq(C5)
     #buzzer.duty_u16(int(volume * 65535))
-    sleep(1)
+    sleep(0.5)
     
     oled.fill(0)
     oled.blit(go, 0, 0)
     oled.show()
     #buzzer.freq(CS7)
     #buzzer.duty_u16(int(volume * 65535))
-    sleep(1)
+    sleep(0.5)
     #buzzer.deinit()
     
 def Forward(speed):
@@ -117,31 +117,31 @@ def Backward(speed):
     oled.fill(0)
     oled.blit(back, 0, 0)
     oled.show()
-    M1A.duty_u16(int(65535*speed/100))
+    M1A.duty_u16(int(65535*speed/90))
     M1B.duty_u16(0)
-    M2A.duty_u16(int(65535*speed/100))
+    M2A.duty_u16(int(65535*speed/90))
     M2B.duty_u16(0)
-    sleep(0.1)
+    sleep(0.15)
 
 def Left(speed):
     oled.fill(0)
     oled.blit(left, 0, 0)
     oled.show()
     M1A.duty_u16(0)
-    M1B.duty_u16(int(65535*speed/150))
-    M2A.duty_u16(int(65535*speed/150))
+    M1B.duty_u16(int(65535*speed/125))
+    M2A.duty_u16(int(65535*speed/125))
     M2B.duty_u16(0)
-    sleep(0.1)    
+    sleep(0.15)    
 
 def Right(speed):
     oled.fill(0)
     oled.blit(right, 0, 0)
     oled.show()
-    M1A.duty_u16(int(65535*speed/150))
+    M1A.duty_u16(int(65535*speed/125))
     M1B.duty_u16(0)
     M2A.duty_u16(0)
-    M2B.duty_u16(int(65535*speed/150))
-    sleep(0.1)
+    M2B.duty_u16(int(65535*speed/125))
+    sleep(0.15)
     
 def Stop():
     oled.fill(0)
@@ -151,7 +151,7 @@ def Stop():
     M1B.duty_u16(0)
     M2A.duty_u16(0)
     M2B.duty_u16(0)
-    sleep(0.5)
+    sleep(0.08)
 
 def Brake(dis):
     str(dis)
@@ -175,7 +175,7 @@ while True:
     r_val = r_ir.value()
     distance = read_distance(6, 26)
     
-    if distance < 10:
+    if distance < 5:
         dis = ('%.1f' %(distance))
         Brake(dis)
         for i in range(3):
@@ -208,17 +208,34 @@ while True:
         np.show()
         Forward(speed) 
     elif l_val==0 and c_val==0 and r_val==0:
-        np.set_pixel(0, blue)
-        np.set_pixel(1, blue)
+        np.set_pixel(0, yellow)
+        np.set_pixel(1, yellow)
         np.show()
-        Right(speed)
-        sleep(0.15)
-        Left(speed)
-        sleep(0.15)
+        for i in range(3):
+            Right(speed)
+            sleep(0.1)
+            l_val = l_ir.value()
+            c_val = c_ir.value()
+            r_val = r_ir.value()
+            if l_val==1 or c_val==1 or r_val==1:
+                break
+            Left(speed)
+            sleep(0.1)
+            l_val = l_ir.value()
+            c_val = c_ir.value()
+            r_val = r_ir.value()
+            if l_val==1 or c_val==1 or r_val==1:
+                break
+        if l_val==0 and c_val==0 and r_val==0:
+            Backward(speed)
+        
+                
     else:
         Stop()
         for i in range(3):
             np.set_pixel(0, red)
             np.set_pixel(1, red)
+            np.set_pixel(0, black)
+            np.set_pixel(1, black)
             np.show()
         
