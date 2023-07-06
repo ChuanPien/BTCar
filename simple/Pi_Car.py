@@ -56,9 +56,6 @@ def Forward(speed):
     M1B.duty_u16(int(65535*speed/100))   # Duty Cycle 的值，介在 0 ~ 65535
     M2A.duty_u16(0)                      # Duty Cycle 的值，介在 0 ~ 65535
     M2B.duty_u16(int(65535*speed/100))   # Duty Cycle 的值，介在 0 ~ 65535
-    np.set_pixel(0, green)
-    np.set_pixel(1, green)
-    np.show()
     time.sleep(0.1)
     
 def Backward(speed):
@@ -66,7 +63,7 @@ def Backward(speed):
     M1A.duty_u16(int(65535*speed/100))   # Duty Cycle 的值，介在 0 ~ 65535
     M1B.duty_u16(0)                      # Duty Cycle 的值，介在 0 ~ 65535
     M2A.duty_u16(int(65535*speed/100))   # Duty Cycle 的值，介在 0 ~ 65535
-    M2B.duty_u16(0)
+    M2B.duty_u16(0)                      # Duty Cycle 的值，介在 0 ~ 65535
     time.sleep(0.1)
 
 def Left(speed):
@@ -74,10 +71,7 @@ def Left(speed):
     M1A.duty_u16(0)                      # Duty Cycle 的值，介在 0 ~ 65535
     M1B.duty_u16(int(65535*speed/100))   # Duty Cycle 的值，介在 0 ~ 65535
     M2A.duty_u16(int(65535*speed/100))   # Duty Cycle 的值，介在 0 ~ 65535
-    M2B.duty_u16(0)       
-    np.set_pixel(0, red)
-    np.set_pixel(1, blue)
-    np.show()
+    M2B.duty_u16(0)                      # Duty Cycle 的值，介在 0 ~ 65535
     time.sleep(0.1)    
 
 def Right(speed):
@@ -86,9 +80,6 @@ def Right(speed):
     M1B.duty_u16(0)                      # Duty Cycle 的值，介在 0 ~ 65535
     M2A.duty_u16(0)                      # Duty Cycle 的值，介在 0 ~ 65535
     M2B.duty_u16(int(65535*speed/100))   # Duty Cycle 的值，介在 0 ~ 65535
-    np.set_pixel(0, blue)
-    np.set_pixel(1, red)
-    np.show()
     time.sleep(0.1)
     
 def Stop():
@@ -97,7 +88,6 @@ def Stop():
     M1B.duty_u16(0)   # Duty Cycle 的值，介在 0 ~ 65535
     M2A.duty_u16(0)   # Duty Cycle 的值，介在 0 ~ 65535
     M2B.duty_u16(0)   # Duty Cycle 的值，介在 0 ~ 65535
-    blink()
     time.sleep(0.5)
 
 def Brake():
@@ -106,19 +96,7 @@ def Brake():
     M1B.duty_u16(65535)   # Duty Cycle 的值，介在 0 ~ 65535
     M2A.duty_u16(65535)   # Duty Cycle 的值，介在 0 ~ 65535
     M2B.duty_u16(65535)   # Duty Cycle 的值，介在 0 ~ 65535
-    np.set_pixel(0, red)  
-    np.set_pixel(1, red)
-    np.show()
     time.sleep(0.5)
-    
-def blink():
-    np.set_pixel(0, red)  
-    np.set_pixel(1, red)
-    np.show()
-    time.sleep(0.5)
-    np.set_pixel(0, black)  
-    np.set_pixel(1, black)
-    np.show()
 
 # 自走車初始化
 Stop()
@@ -126,20 +104,22 @@ ws2812_start()
 
 # 自走車移動主程式
 while True:
-    speed = 40             # speed速度變數，預設值80，可以自己調整 0 ~ 100
+    speed = 80             # speed速度變數，預設值80，可以自己調整 0 ~ 100
     Forward(speed)
-    time.sleep(2)
-    
+    np.set_pixel(0, green) # 前進：左右亮綠燈
+    np.set_pixel(1, green)
+    np.show()
+    time.sleep(5)
     Backward(speed)
-    blink()
-    time.sleep(2)
-    
+    np.set_pixel(0, blue)  # 後退：左右亮藍燈
+    np.set_pixel(1, blue)
+    np.show()
+    time.sleep(5)    
     Left(speed)
-    time.sleep(2)
-    
+    np.set_pixel(0, red)   # 左轉：左邊亮紅燈
+    np.show()
+    time.sleep(5)    
     Right(speed)
-    time.sleep(2)
-    
-    Stop()
-    
-    break
+    np.set_pixel(1, red)   # 右轉：右邊亮紅燈
+    np.show()
+    time.sleep(5)
