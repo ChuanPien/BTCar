@@ -19,13 +19,13 @@
 ## 結構大綱
  + Sensor_Car/
    + 循跡自走車
++ image/
+   + 課程照片
  + mods/
    + 課堂提供模組檔案
  + simple/
    + 基本練習程式
- + image/
-   + 課程照片
  + src/
    + 資料圖片
 
-![image](png/Car.jpg)
+![image](image/Car.jpg)
