@@ -16,10 +16,14 @@
 * Python 3.10.11
 * Maker Pi RP2024
 
-## 結構大綱
+## 資料夾大綱
+ + BT_Car/
+   + 藍芽遙控車
+ + Music/
+   + 蜂鳴器練習
  + Sensor_Car/
    + 循跡自走車
-+ image/
+ + image/
    + 課程照片
  + mods/
    + 課堂提供模組檔案
